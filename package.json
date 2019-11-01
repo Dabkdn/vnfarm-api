@@ -1,0 +1,48 @@
+{
+  "name": "react-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^15.0.3",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "bootstrap": "4.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "ejs": "2.6.1",
+    "express": "4.16.3",
+    "express-session": "^1.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.0",
+    "mongoose": "^5.5.8",
+    "poper": "^0.1.1",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "morgan": "^1.9.1"
+  },
+  "_moduleAliases": {
+    "@root": ".",
+    "@deep": "src/some/very/deep/directory/or/file",
+    "@my_module": "lib/some-file.js",
+    "@constants": "constants",
+    "@middlewares": "middlewares",
+    "@models": "models",
+    "@routes": "routes",
+    "@services": "services",
+    "@config": "config"
+  },
+  "_moduleDirectories": [
+    "node_modules_custom"
+  ]
+}
