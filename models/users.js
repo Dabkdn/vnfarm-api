@@ -6,6 +6,11 @@ const schema = new Schema({
     password: { type: String, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    birthDate: { type: Date },
+    address: { type: String },
+    phone: { type: String, unique: true, required: true },
+    email: { type: String, lowercase: true, unique: true, required: true },
+    roleId: { type: String },
     createdDate: { type: Date, default: Date.now }
 });
 

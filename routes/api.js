@@ -1,15 +1,29 @@
 const router = require('express').Router()
-const apiController = require('../controllers/api/index')
+const {
+    authenticationController,
+    countController,
+    userController
+} = require('../controllers/index')
+
 const {
     login
 } = require('../middlewares')
 
-router.post('/delete/count', login.checkToken, apiController.countController.deleteCount)
-router.post('/count', login.checkToken, apiController.countController.addCount)
-router.get('/counts', apiController.countController.getCounts)
-router.get('/count', apiController.countController.getCount)
-router.put('/count', login.checkToken, apiController.countController.updateCount)
+//count routers
+router.post('/delete/count', login.checkToken, countController.deleteCount)
+router.post('/count', login.checkToken, countController.addCount)
+router.get('/counts', countController.getCounts)
+router.get('/count', countController.getCount)
+router.put('/count', login.checkToken, countController.updateCount)
 
-router.post('/login', apiController.authenticationController.login)
-router.post('/register', apiController.registerController.register)
+router.post('/login', authenticationController.login)
+
+//user routers
+router.post('./delete/user',login.checkToken, login.checkPermission, userController.deleteUser)
+router.post('/user', userController.addUser)
+router.get('/users', login.checkToken, login.checkPermission, userController.getUsers)
+router.get('/user', userController.getUser)
+router.put('./user', login.checkToken, userController.updateUser)
+
+
 module.exports = router
