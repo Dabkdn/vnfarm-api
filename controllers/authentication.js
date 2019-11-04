@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const config = require('@config')
 const mongoose = require("mongoose")
 const User = mongoose.model("User")
+const Token = mongoose.model("Token")
 const bcrypt = require('bcrypt');
 
 const login = async (req, res) => {
@@ -11,19 +12,34 @@ const login = async (req, res) => {
     let mockedUsername = '';
     let mockedPassword = '';
     let userId = '';
-    await User.findOne({'username': username})
-    .then(result => {
-        mockedUsername = result.username
-        mockedPassword = result.password
-        userId = result._id
-    })
-    
+    await User.findOne({ 'username': username })
+        .then(result => {
+            mockedUsername = result.username
+            mockedPassword = result.password
+            userId = result._id
+        })
+
     if (username && password) {
         if (username === mockedUsername && bcrypt.compareSync(password, mockedPassword) === true) {
+            let period = 15 * 60
             let token = jwt.sign(
-                {userId: userId},
+                { userId: userId },
                 config.secret,
-                { expiresIn: 15*60 }
+                { expiresIn: period }
+            );
+            //add token to db
+            await Token.update(
+                { userId: userId },
+                {
+                    userId: userId,
+                    token: token,
+                    period: period,
+                    updatedDate: Date.now()
+                },
+                {
+                    upsert: true,
+                    setDefaultsOnInsert: true
+                }
             );
             res.send({
                 success: true,
@@ -41,7 +57,7 @@ const login = async (req, res) => {
             success: false,
             message: 'Authentication failed! Please check the request'
         });
-    } 
+    }
 }
 
 

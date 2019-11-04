@@ -17,7 +17,7 @@ const add = async (data) => {
             roleId: "5dbf7064e62cc872572265c8"
         })
 
-        await userInstance.save()
+        return await userInstance.save()
     }
     catch (err) {
         throw err

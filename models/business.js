@@ -2,18 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    username: { type: String, unique: true, required: true },
-    password: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    birthDate: { type: Date },
+    name: { type: String, unique: true, required: true },
+    nameSlug: { type: String },
+    status: { type: Number, default: 0 },
     address: { type: String },
     phone: { type: String, unique: true, required: true },
     email: { type: String, lowercase: true, unique: true, required: true },
-    roleId: { type: String },
+    logo: { type: String },
+    description: { type: String },
+    userId: { type: String, required: true },
+    categoryId: { type: String, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('Business', schema);

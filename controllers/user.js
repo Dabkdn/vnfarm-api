@@ -2,14 +2,13 @@ const { userService } = require('@services')
 
 const addUser = async (req, res) => {
     try {
-        await userService.add(req.body)
-        res.status(200).send({
-            message: 'register successfullly'
+        await userService.add(req.body).then((user) => {
+            res.status(200).send(user)
         })
     }
     catch (err) {
         res.status(500).send({
-            message: 'failed to register. '+err
+            message: 'failed to register. ' + err
         })
     }
 }
@@ -20,7 +19,9 @@ const getUsers = (req, res) => {
         })
     }
     catch (err) {
-        res.sendStatus(400)
+        res.status(400).send({
+            message: err
+        })
     }
 }
 const updateUser = (req, res) => {
@@ -31,7 +32,9 @@ const updateUser = (req, res) => {
             })
     }
     catch (err) {
-        res.sendStatus(400)
+        res.status(400).send({
+            message: err
+        })
     }
 }
 const deleteUser = (req, res) => {
@@ -41,17 +44,27 @@ const deleteUser = (req, res) => {
         })
     }
     catch (err) {
-        res.sendStatus(400)
+        res.status(400).send({
+            message: err
+        })
     }
 }
 const getUser = (req, res) => {
     try {
-        userService.get(req.query.id).then(result => {
-            res.json(result)
-        })
+        if (req.query.id && req.query.id != null) {
+            userService.get(req.query.id).then(result => {
+                res.json(result)
+            })
+        }
+        else {
+            throw "id is required"
+        }
+
     }
     catch (err) {
-        res.sendStatus(400)
+        res.status(400).send({
+            message: err
+        })
     }
 }
 
