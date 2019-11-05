@@ -10,6 +10,7 @@ module.exports = {
     order: require("./order"),
     product: require("./product"),
     count: require('./count'),
+    role: require('./role'),
     user: require('./user'),
     token: require('./token')
 }

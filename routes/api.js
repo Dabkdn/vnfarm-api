@@ -3,7 +3,8 @@ const {
     faqController,
     authenticationController,
     countController,
-    userController
+    userController,
+    roleController
 } = require('../controllers/index')
 
 const {
@@ -33,5 +34,8 @@ router.get('/users', login.checkToken, login.checkPermission, userController.get
 router.get('/user', userController.getUser)
 router.put('./user', login.checkToken, userController.updateUser)
 
+//role routers //REMEMBER ADD PERMISSION LATER
+router.get('/roles', roleController.getRoles)
+router.get('/role', roleController.getRole)
 
 module.exports = router

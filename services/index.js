@@ -8,6 +8,7 @@ const messageService = require('./message')
 const orderService = require('./order')
 const productService = require('./product')
 const countService = require('./count')
+const roleService = require('./role')
 const userService = require('./user')
 module.exports = {
     anouncementService,
@@ -20,5 +21,6 @@ module.exports = {
     orderService,
     productService,
     countService,
+    roleService,
     userService
 }
