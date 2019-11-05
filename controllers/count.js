@@ -3,6 +3,7 @@ const {countService} = require('@services')
 const addCount = (req, res) => {
     try {
         countService.add(req.body)
+        
         res.sendStatus(200)
     }
     catch(err) {

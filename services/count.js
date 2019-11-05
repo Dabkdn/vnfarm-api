@@ -8,7 +8,7 @@ const getAll = () => {
     return Count.find({})
 }
 const update = (data) => {
-    return Count.update({_id: data.id}, {value: data.value})
+    return Count.updateOne({_id: data.id}, data)
 }
 const remove = (data) => {
     return Count.remove({_id: {$in: data}})

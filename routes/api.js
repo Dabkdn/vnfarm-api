@@ -12,11 +12,11 @@ const {
 } = require('../middlewares')
 
 //count routers
-router.post('/delete/count', login.checkToken, countController.deleteCount)
-router.post('/count', login.checkToken, countController.addCount)
+router.post('/delete/count', countController.deleteCount)
+router.post('/count', countController.addCount)
 router.get('/counts', countController.getCounts)
 router.get('/count', countController.getCount)
-router.put('/count', login.checkToken, countController.updateCount)
+router.put('/count', countController.updateCount)
 
 router.post('/login', authenticationController.login)
 

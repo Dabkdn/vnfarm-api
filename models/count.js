@@ -1,15 +1,12 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Schema = mongoose.Schema
-
-const countSchema = new Schema({
-    value: {type: Number, default: 0}
+const schema = new Schema({
+    value: { type: String, default: 0 },
+    description: { type: String }
 });
 
-const dataMigrate = [];
 
-countSchema.statics.getMigrateData = function () {
-    return dataMigrate;
-}
+schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Count', countSchema)
+module.exports = mongoose.model('Count', schema);
