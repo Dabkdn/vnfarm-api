@@ -8,6 +8,12 @@ const schema = new Schema({
     logo: { type: String }
 });
 
+schema.virtual('categories',{
+    ref: 'Category',
+    localField: '_id',
+    foreignField: 'parentId'
+});
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Category', schema);

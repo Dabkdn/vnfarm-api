@@ -4,7 +4,8 @@ const {
     authenticationController,
     countController,
     userController,
-    roleController
+    roleController,
+    categoryController
 } = require('../controllers/index')
 
 const {
@@ -37,5 +38,13 @@ router.put('./user', login.checkToken, userController.updateUser)
 //role routers //REMEMBER ADD PERMISSION LATER
 router.get('/roles', roleController.getRoles)
 router.get('/role', roleController.getRole)
+
+//category routers
+router.post('./delete/category', categoryController.deleteCategory)
+router.post('/category', categoryController.addCategory)
+router.get('/categories', categoryController.getCategories)
+router.get('/category', categoryController.getCategory)
+router.put('./category', categoryController.updateCategory)
+router.get('/category/parentwithchild', categoryController.getParentCategoryWithChilds)
 
 module.exports = router
