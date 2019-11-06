@@ -8,12 +8,15 @@ const add = async (data) => {
         let hash = bcrypt.hashSync(data.password, constants.saltRounds);
 
         let userInstance = new User({
-            firstName: data.firstname,
-            lastName: data.lastname,
+            firstName: data.firstName,
+            lastName: data.lastName,
             username: data.username,
             password: hash,
             phone: data.phone,
             email: data.email,
+            address: data.address,
+            birthday: data.birthday,
+            avatar: data.avatar,
             roleId: "5dbf7064e62cc872572265c8"
         })
 

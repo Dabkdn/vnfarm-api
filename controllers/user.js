@@ -7,7 +7,7 @@ const addUser = async (req, res) => {
         })
     }
     catch (err) {
-        res.status(500).send({
+        res.status(400).send({
             message: 'failed to register. ' + err
         })
     }
