@@ -30,7 +30,7 @@ const getAll = () => {
     return User.find({})
 }
 const update = (data) => {
-    return User.update({ _id: data.id }, { value: data.value })
+    return User.update({ _id: data.id }, data)
 }
 const remove = (data) => {
     return User.remove({ _id: { $in: data } })

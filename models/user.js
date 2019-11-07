@@ -11,7 +11,7 @@ const schema = new Schema({
     address: { type: String },
     phone: { type: String, unique: true, required: true },
     email: { type: String, lowercase: true, unique: true, required: true },
-    avatar: { type: String, default: "/assets/image/avatar/default-avatar.png" },
+    avatar: { type: String, default: "/assets/images/avatar/default-user.png" },
     roleId: { type: String },
     createdDate: { type: Date, default: Date.now }
 });
