@@ -5,7 +5,9 @@ const {
     countController,
     userController,
     roleController,
-    categoryController
+    categoryController,
+    productController,
+    currencyUnitController
 } = require('../controllers/index')
 
 const {
@@ -46,5 +48,19 @@ router.get('/categories', categoryController.getCategories)
 router.get('/category', categoryController.getCategory)
 router.put('/category', categoryController.updateCategory)
 router.get('/category/parentwithchild', categoryController.getParentCategoryWithChilds)
+
+//product routers
+router.post('/delete/product', productController.deleteProduct)
+router.post('/product', productController.addProduct)
+router.get('/products', productController.getProducts)
+router.get('/product', productController.getProduct)
+router.put('/product', productController.updateProduct)
+
+//product routers
+router.post('/delete/unit', currencyUnitController.deleteCurrencyUnit)
+router.post('/unit', currencyUnitController.addCurrencyUnit)
+router.get('/units', currencyUnitController.getCurrencyUnits)
+router.get('/unit', currencyUnitController.getCurrencyUnit)
+router.put('/unit', currencyUnitController.updateCurrencyUnit)
 
 module.exports = router

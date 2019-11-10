@@ -4,6 +4,8 @@ const authenticationController = require('./authentication')
 const userController = require('./user')
 const roleController = require("./role")
 const categoryController = require('./category')
+const productController = require('./product')
+const currencyUnitController = require('./currencyUnit')
 
 module.exports = {
     faqController,
@@ -11,5 +13,7 @@ module.exports = {
     authenticationController,
     roleController,
     userController,
-    categoryController
+    categoryController,
+    productController,
+    currencyUnitController
 }
