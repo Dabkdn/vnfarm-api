@@ -8,6 +8,7 @@ const schema = new Schema({
     lastName: { type: String, required: true },
     status: { type: Number, default: 1 },
     birthday: { type: Date },
+    gender: { type: Boolean },
     address: { type: String },
     phone: { type: String, unique: true, required: true },
     email: { type: String, lowercase: true, unique: true, required: true },

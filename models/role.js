@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     name: {type: String, required: true},
+    createdDate: { type: Date, default: Date.now }
     // users: [{type: Schema.Types.ObjectId, ref: 'User', field: 'roleId'}]
 });
 

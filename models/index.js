@@ -2,7 +2,6 @@ module.exports = {
     anouncement: require("./anouncement"),
     auction: require("./auction"),
     auctionDetail: require("./auctionDetail"),
-    business: require("./business"),
     category: require("./category"),
     conversation: require("./conversation"),
     faq: require("./faq"),

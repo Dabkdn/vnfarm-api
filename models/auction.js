@@ -2,10 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
+    ownerId: {type: String, required: true},
+    productId: {type: String, required: true},
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
-    productId: {type: String, required: true},
-    businessId: {type: String, required: true},
+    winnerId: {type: String, required: true},
+    createdDate: { type: Date, default: Date.now }
     //check start < end
 });
 

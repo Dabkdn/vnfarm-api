@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     auctionId: {type: String, required: true},
-    businessId: {type: String, required: true},
+    userId: {type: String, required: true},
     bidMoney: { type: Number, required: true },
-    isWinner: { type: Boolean, default: false }
+    createdDate: { type: Date, default: Date.now }
 });
 
 schema.set('toJSON', { virtuals: true });
