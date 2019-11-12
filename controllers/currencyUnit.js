@@ -2,6 +2,7 @@ const {currencyUnitService} = require('@services')
 
 const addCurrencyUnit = (req, res) => {
     try {
+        console.log(req.body)
         currencyUnitService.add(req.body)
         res.sendStatus(200)
     }

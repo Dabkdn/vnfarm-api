@@ -12,5 +12,6 @@ module.exports = {
     role: require('./role'),
     user: require('./user'),
     currencyUnit: require('./currencyUnit'),
-    token: require('./token')
+    token: require('./token'),
+    image: require('./image')
 }

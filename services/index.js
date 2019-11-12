@@ -9,6 +9,9 @@ const productService = require('./product')
 const countService = require('./count')
 const roleService = require('./role')
 const userService = require('./user')
+const currencyUnitService = require('./currencyUnit')
+const imageService = require('./image')
+
 module.exports = {
     anouncementService,
     auctionService,
@@ -20,5 +23,7 @@ module.exports = {
     productService,
     countService,
     roleService,
-    userService
+    userService,
+    currencyUnitService,
+    imageService
 }

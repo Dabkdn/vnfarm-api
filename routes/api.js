@@ -7,7 +7,8 @@ const {
     roleController,
     categoryController,
     productController,
-    currencyUnitController
+    currencyUnitController, 
+    imageController
 } = require('../controllers/index')
 
 const {
@@ -62,5 +63,23 @@ router.post('/unit', currencyUnitController.addCurrencyUnit)
 router.get('/units', currencyUnitController.getCurrencyUnits)
 router.get('/unit', currencyUnitController.getCurrencyUnit)
 router.put('/unit', currencyUnitController.updateCurrencyUnit)
+
+
+const path = require("path");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+    destination: "./public/storage/product/",
+    filename: function (req, file, cb) {
+        cb(null, "product-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 1000000 },
+})
+
+router.post("/upload", upload.single("product"), imageController.addImage)
 
 module.exports = router

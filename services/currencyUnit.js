@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const CurrencyUnit = mongoose.model('CurrencyUnit')
 
 const add = (data) => {
+    console.log(data)
     return CurrencyUnit.insertMany(data)
 }
 const getAll = () => {
