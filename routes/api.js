@@ -56,8 +56,9 @@ router.post('/product', productController.addProduct)
 router.get('/products', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
+router.get('/products/user/:id', productController.getUserProducts)
 
-//product routers
+//unit routers
 router.post('/delete/unit', currencyUnitController.deleteCurrencyUnit)
 router.post('/unit', currencyUnitController.addCurrencyUnit)
 router.get('/units', currencyUnitController.getCurrencyUnits)

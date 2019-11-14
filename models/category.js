@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     name: { type: String, required: true },
     description: { type: String },
-    parentId: { type: String },
+    parentId: { type: Schema.Types.ObjectId },
     logo: { type: String }
 });
 

@@ -13,7 +13,7 @@ const schema = new Schema({
     phone: { type: String, unique: true, required: true },
     email: { type: String, lowercase: true, unique: true, required: true },
     avatar: { type: String, default: "/assets/images/avatar/default-user.png" },
-    roleId: { type: String },
+    roleId: { type: Schema.Types.ObjectId },
     createdDate: { type: Date, default: Date.now }
 });
 

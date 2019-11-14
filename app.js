@@ -8,6 +8,11 @@ const morgan = require('morgan')
 const mongoose = require('mongoose')
 const app = express()
 const http = require('http').Server(app);
+
+const io = require('socket.io')(http);
+
+const socket = require('./socket')
+
 const { apiRouter } = require('./routes')
 const cors = require("cors");
 const session = require('express-session')
@@ -30,6 +35,7 @@ mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {use
     () => {
         http.listen(process.env.PORT, () => {
             console.log(`Server is running at localhost:${process.env.PORT}`)
+            socket.bid.bidSocket(io)
         })
     },
     err => {

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    userId: { type: String, required: true },
-    tenderId: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
+    tenderId: { type: Schema.Types.ObjectId, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 

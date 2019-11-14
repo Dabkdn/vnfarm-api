@@ -7,14 +7,20 @@ const schema = new Schema({
     status: { type: Number, default: 0 },
     code: { type: String },
     price: { type: Number },
-    unitId: { type: String, required: true },
+    unitId: { type: Schema.Types.ObjectId, required: true },
     images: { type: Array },
     description: { type: String },
-    userId: { type: String, required: true },
-    categoryId: { type: String, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
+    categoryId: { type: Schema.Types.ObjectId, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 
+schema.virtual('user',{
+    ref: 'User',
+    localField: 'userId',
+    foreignField: '_id',
+    justOne: true
+});
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Product', schema);

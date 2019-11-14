@@ -59,10 +59,24 @@ const getProduct = (req, res) => {
     }
 }
 
+const getUserProducts = (req, res) => {
+    try {
+        productService.getAll({userId: req.params['id']}).then(result => {
+            res.json(result)
+        })
+    }
+    catch(err) {
+        res.status(400).send({
+            message: err
+        })
+    }
+}
+
 module.exports = {
     addProduct,
     getProducts,
     getProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    getUserProducts
 }

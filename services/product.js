@@ -13,8 +13,8 @@ const add = (data) => {
     //     throw err
     // }
 }
-const getAll = () => {
-    return Product.find({})
+const getAll = (option = {}, populate = '') => {
+    return Product.find(option).populate(populate)
 }
 const update = (data) => {
     return Product.update({ _id: data.id }, data)
@@ -23,7 +23,8 @@ const remove = (data) => {
     return Product.remove({ _id: { $in: data } })
 }
 const get = (id) => {
-    return Product.findOne({ _id: id })
+    console.log(id)
+    return Product.findOne({ _id: id }).populate("unit").exec()
 }
 
 module.exports = {
