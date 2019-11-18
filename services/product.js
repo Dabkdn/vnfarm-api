@@ -5,13 +5,6 @@ const add = (data) => {
     console.log(data);
     
     return Product.insertMany(data)
-    // try {
-    //     let instance = new Product(data)
-    //     instance.save()
-    // }
-    // catch(err) {
-    //     throw err
-    // }
 }
 const getAll = (option = {}, populate = '') => {
     return Product.find(option).populate(populate)

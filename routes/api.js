@@ -8,7 +8,8 @@ const {
     categoryController,
     productController,
     currencyUnitController, 
-    imageController
+    imageController,
+    auctionController
 } = require('../controllers/index')
 
 const {
@@ -57,6 +58,7 @@ router.get('/products', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
 router.get('/products/user/:id', productController.getUserProducts)
+router.get('/products/category/:categoryId', productController.getProductsByCategoryId)
 
 //unit routers
 router.post('/delete/unit', currencyUnitController.deleteCurrencyUnit)
@@ -66,21 +68,42 @@ router.get('/unit', currencyUnitController.getCurrencyUnit)
 router.put('/unit', currencyUnitController.updateCurrencyUnit)
 
 
+//auction routers
+router.post('/delete/auction', auctionController.deleteAuction)
+router.post('/auction', auctionController.addAuction)
+router.get('/auctions', auctionController.getAuctions)
+router.get('/auction', auctionController.getAuction)
+router.put('/auction', auctionController.updateAuction)
+
+
 const path = require("path");
 const multer = require("multer");
 
-const storage = multer.diskStorage({
+const prorductStorage = multer.diskStorage({
     destination: "./public/storage/product/",
     filename: function (req, file, cb) {
         cb(null, "product-" + Date.now() + path.extname(file.originalname));
     }
 });
 
-const upload = multer({
-    storage: storage,
+const uploadProductImage = multer({
+    storage: prorductStorage,
     limits: { fileSize: 1000000 },
 })
 
-router.post("/upload", upload.single("product"), imageController.addImage)
+const avatarStorage = multer.diskStorage({
+    destination: "./public/storage/avatar/",
+    filename: function (req, file, cb) {
+        cb(null, "avatar-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const uploadAvatar = multer({
+    storage: avatarStorage,
+    limits: { fileSize: 1000000 },
+})
+
+router.post("/upload/product", uploadProductImage.single("product"), imageController.addImage)
+router.post("/upload/avatar", uploadAvatar.single("avatar"), imageController.addImage)
 
 module.exports = router

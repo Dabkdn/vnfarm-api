@@ -6,7 +6,7 @@ const schema = new Schema({
     productId: {type: Schema.Types.ObjectId, required: true},
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
-    winnerId: {type: Schema.Types.ObjectId, required: true},
+    winnerId: {type: Schema.Types.ObjectId, default: null},
     createdDate: { type: Date, default: Date.now }
     //check start < end
 });

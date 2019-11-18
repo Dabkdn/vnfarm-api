@@ -2,6 +2,7 @@ const { imageService } = require('@services')
 
 const addImage = async (req, res) => {
     try {
+        console.log(req.file)
         await imageService.add(req.file).then((result) => {
             res.json(result)
         })

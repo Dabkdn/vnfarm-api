@@ -7,6 +7,7 @@ const categoryController = require('./category')
 const productController = require('./product')
 const currencyUnitController = require('./currencyUnit')
 const imageController = require('./image')
+const auctionController = require('./auction')
 
 module.exports = {
     faqController,
@@ -17,5 +18,6 @@ module.exports = {
     categoryController,
     productController,
     currencyUnitController,
-    imageController
+    imageController,
+    auctionController
 }

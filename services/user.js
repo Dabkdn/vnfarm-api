@@ -10,6 +10,7 @@ const add = async (data) => {
         let userInstance = new User({
             firstName: data.firstName,
             lastName: data.lastName,
+            gender: data.gender,
             username: data.username,
             password: hash,
             phone: data.phone,

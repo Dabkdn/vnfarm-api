@@ -21,6 +21,13 @@ schema.virtual('user',{
     foreignField: '_id',
     justOne: true
 });
+
+schema.virtual('auction',{
+    ref: 'Auction',
+    localField: '_id',
+    foreignField: 'productId',
+    justOne: true
+});
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Product', schema);
