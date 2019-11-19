@@ -25,22 +25,16 @@ const getUsers = (req, res) => {
     }
 }
 const updateUser = (req, res) => {
-    try {
-        userService.update(req.body)
-            .then(result => {
-                res.json(result)
-            })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
-        })
-    }
+    userService.update(req.body, (result) => {
+        res.status(200).send(result)
+    },(error) => {
+        res.status(400).send(error)
+    })
 }
 const deleteUser = (req, res) => {
     try {
         userService.remove(req.body).then(result => {
-            res.json(result)
+            res.status(200).send(result)
         })
     }
     catch (err) {

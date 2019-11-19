@@ -15,9 +15,8 @@ const update = (data) => {
 const remove = (data) => {
     return Product.remove({ _id: { $in: data } })
 }
-const get = (id) => {
-    console.log(id)
-    return Product.findOne({ _id: id }).populate("unit").exec()
+const get = (id, populate = '') => {
+    return Product.findOne({ _id: id }).populate('auction').populate('user').populate('unit')
 }
 
 module.exports = {

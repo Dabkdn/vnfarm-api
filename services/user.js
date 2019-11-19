@@ -30,8 +30,15 @@ const add = async (data) => {
 const getAll = () => {
     return User.find({})
 }
-const update = (data) => {
-    return User.update({ _id: data.id }, data)
+const update = (data, resolve, reject) => {
+    return User.updateOne({ _id: data.id }, data, (err, raw) => {
+        if (err) {
+            reject(err)
+        }
+        else {
+            resolve(raw)
+        }
+    })
 }
 const remove = (data) => {
     return User.remove({ _id: { $in: data } })

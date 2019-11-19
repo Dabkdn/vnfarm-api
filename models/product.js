@@ -28,6 +28,13 @@ schema.virtual('auction',{
     foreignField: 'productId',
     justOne: true
 });
+
+schema.virtual('unit',{
+    ref: 'CurrencyUnit',
+    localField: 'unitId',
+    foreignField: '_id',
+    justOne: true
+});
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Product', schema);

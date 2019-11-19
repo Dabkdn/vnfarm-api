@@ -37,7 +37,7 @@ router.post('/delete/user', login.checkToken, login.checkPermission, userControl
 router.post('/user', userController.addUser)
 router.get('/users', login.checkToken, login.checkPermission, userController.getUsers)
 router.get('/user', userController.getUser)
-router.put('/user', login.checkToken, userController.updateUser)
+router.put('/user', userController.updateUser)
 
 //role routers //REMEMBER ADD PERMISSION LATER
 router.get('/roles', roleController.getRoles)
