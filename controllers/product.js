@@ -1,11 +1,11 @@
-const {productService} = require('@services')
+const { productService } = require('@services')
 
 const addProduct = (req, res) => {
     try {
         productService.add(req.body)
         res.sendStatus(200)
     }
-    catch(err) {
+    catch (err) {
         res.render('error')
     }
 }
@@ -15,7 +15,7 @@ const getProducts = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -24,11 +24,11 @@ const getProducts = (req, res) => {
 const updateProduct = (req, res) => {
     try {
         productService.update(req.body)
-        .then(result=> {
-            res.json(result)
-        })
+            .then(result => {
+                res.json(result)
+            })
     }
-    catch(err) {
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -40,7 +40,7 @@ const deleteProduct = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -52,7 +52,7 @@ const getProduct = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -61,11 +61,11 @@ const getProduct = (req, res) => {
 
 const getUserProducts = (req, res) => {
     try {
-        productService.getAll({userId: req.params['id']}, 'auction').then(result => {
+        productService.getAll({ userId: req.params['id'] }, 'auction').then(result => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -73,12 +73,26 @@ const getUserProducts = (req, res) => {
 }
 
 const getProductsByCategoryId = (req, res) => {
-    try{
-        productService.getAll({categoryId: req.params['categoryId']}, 'auction').then(result => {
+    try {
+        productService.getAll({ categoryId: req.params['categoryId'] }, 'auction').then(result => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
+        res.status(400).send({
+            message: err
+        })
+    }
+}
+
+const getMyProducts = (req, res) => {
+    try {
+        const userId = req.decoded && req.decoded.userId
+        productService.getAll({ userId: userId }, 'auction').then(result => {
+            res.json(result)
+        })
+    }
+    catch (err) {
         res.status(400).send({
             message: err
         })
@@ -92,5 +106,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     getUserProducts,
-    getProductsByCategoryId
+    getProductsByCategoryId,
+    getMyProducts
 }

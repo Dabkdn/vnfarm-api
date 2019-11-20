@@ -21,6 +21,7 @@ const login = async (req, res) => {
         })
 
     if (username && password) {
+        console.log(username, mockedUsername, password, mockedPassword)
         if (username === mockedUsername && bcrypt.compareSync(password, mockedPassword) === true) {
             let period = 24 * 60 * 60
             let token = jwt.sign(
@@ -45,8 +46,7 @@ const login = async (req, res) => {
             res.send({
                 success: true,
                 message: 'Authentication successful!',
-                token: token,
-                userId: userId
+                token: token
             });
         } else {
             res.status(403).send({

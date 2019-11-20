@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Auction = mongoose.model('Auction')
+const jwt = require('jsonwebtoken');
+const config = require('@config')
 
 const bidSocket = (io) => {
     io.on('connection', (socket) => {
@@ -7,11 +9,12 @@ const bidSocket = (io) => {
 
         socket.emit('hello', 'NKH')
 
-        socket.on("bidmoney", async (data, callback) => {
-            console.log(JSON.stringify(data, 0, 2))
-            //add auction detail to auction table
-            console.log(data.auctionId)
-            await Auction.findById(data.auctionId).then(result=> {
+        socket.on("bidmoney", async (data) => {
+            const decoded = jwt.verify(data.token, config.secret)
+
+            const userId = decoded && decoded.userId
+
+            await Auction.findById(data.auctionId).then(result => {
                 const oldAuctionDetail = result.auctionDetail
                 Auction.update(
                     { _id: data.auctionId },
@@ -19,22 +22,20 @@ const bidSocket = (io) => {
                         auctionDetail: {
                             ...oldAuctionDetail,
                             [data.userId]: {
-                                userId: data.userId,
+                                userId: userId,
                                 bidMoney: data.bidMoney,
                                 updatedDate: (new Date)
                             }
                         }
                     },
                     (err, res) => {
-                        console.log(err, res)
+                        if (err) socket.emit('error', err)
                     }
                 )
             })
-            Auction.findById(data.auctionId).then(result => {
-                socket.emit("tenders", result)
+            await Auction.findById(data.auctionId).then(result => {
+                io.sockets.emit("tenders", result)
             })
-            
-            callback("successfuly")
         })
 
         socket.on('disconnect', function () {

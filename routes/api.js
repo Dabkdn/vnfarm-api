@@ -37,6 +37,7 @@ router.post('/delete/user', login.checkToken, login.checkPermission, userControl
 router.post('/user', userController.addUser)
 router.get('/users', login.checkToken, login.checkPermission, userController.getUsers)
 router.get('/user', userController.getUser)
+router.get('/user/me', login.checkToken, userController.getMe)
 router.put('/user', userController.updateUser)
 
 //role routers //REMEMBER ADD PERMISSION LATER
@@ -58,6 +59,7 @@ router.get('/products', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
 router.get('/products/user/:id', productController.getUserProducts)
+router.get('/myproducts', login.checkToken, productController.getMyProducts)
 router.get('/products/category/:categoryId', productController.getProductsByCategoryId)
 
 //unit routers

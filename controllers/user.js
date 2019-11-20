@@ -27,7 +27,7 @@ const getUsers = (req, res) => {
 const updateUser = (req, res) => {
     userService.update(req.body, (result) => {
         res.status(200).send(result)
-    },(error) => {
+    }, (error) => {
         res.status(400).send(error)
     })
 }
@@ -62,10 +62,25 @@ const getUser = (req, res) => {
     }
 }
 
+const getMe = (req, res) => {
+    const userId = req.decoded && req.decoded.userId
+    try {
+        userService.get(userId).then(result => {
+            res.json(result)
+        })
+    }
+    catch (err) {
+        res.status(400).send({
+            message: err
+        })
+    }
+}
+
 module.exports = {
     addUser,
     getUsers,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getMe
 }
