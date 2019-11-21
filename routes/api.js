@@ -27,8 +27,8 @@ router.post('/login', authenticationController.login)
 
 //faq routers
 router.post('/delete/faq', login.checkToken, login.checkPermission, faqController.deleteFAQ)
-router.post('/faq', login.checkToken, login.checkPermission, faqController.addFAQ)
-router.get('/faqs', login.checkToken, login.checkPermission, faqController.getFAQs)
+router.post('/faq', faqController.addFAQ)
+router.get('/faqs', faqController.getFAQs)
 router.get('/faq', faqController.getFAQ)
 router.put('/faq', login.checkToken, login.checkPermission, faqController.updateFAQ)
 

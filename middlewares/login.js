@@ -65,18 +65,24 @@ const checkToken = (req, res, next) => {
     }
 };
 
+const mongoose = require('mongoose')
+const User = mongoose.model('User')
+
 const checkPermission = (req, res, next) => {
-    let decoded = req.decoded
-    //check userId 
-    if (decoded && decoded.userId != "5d1b03759f18d43d77423970") {
-        return res.status(401).send({
-            success: false,
-            message: 'not permission'
-        })
-    }
-    else {
-        next()
-    }
+    const userId = req.decoded && req.decoded.userId
+    //check userId
+    User.findById(userId).populate('role').then(user => {
+        if(user.role && user.role.name !== 'admin') {
+            return res.status(401).send({
+                        success: false,
+                        message: 'not permission'
+                    })
+        }
+        else {
+            next()
+        }
+        
+    })
 }
 
 

@@ -17,6 +17,13 @@ const schema = new Schema({
     createdDate: { type: Date, default: Date.now }
 });
 
+schema.virtual('role',{
+    ref: 'Role',
+    localField: 'roleId',
+    foreignField: '_id',
+    justOne: true
+});
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('User', schema);
