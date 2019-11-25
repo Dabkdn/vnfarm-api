@@ -45,15 +45,9 @@ const deleteUser = (req, res) => {
 }
 const getUser = (req, res) => {
     try {
-        if (req.query.id && req.query.id != null) {
-            userService.get(req.query.id).then(result => {
-                res.json(result)
-            })
-        }
-        else {
-            throw "id is required"
-        }
-
+        userService.get(req.query.id).then(result => {
+            res.json(result)
+        })
     }
     catch (err) {
         res.status(400).send({

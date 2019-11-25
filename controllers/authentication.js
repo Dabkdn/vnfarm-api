@@ -11,8 +11,8 @@ const login = async (req, res) => {
     let password = req.body.password;
     let mockedUsername = '';
     let mockedPassword = '';
-    let userId = '';
-    await User.findOne({ 'username': username })
+    let user = {};
+    await User.findOne({ 'username': username }).populate('role')
         .then(result => {
             mockedUsername = result.username
             mockedPassword = result.password
@@ -46,7 +46,8 @@ const login = async (req, res) => {
             res.send({
                 success: true,
                 message: 'Authentication successful!',
-                token: token
+                token: token,
+                user: user
             });
         } else {
             res.status(403).send({

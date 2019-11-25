@@ -35,7 +35,7 @@ router.put('/faq', login.checkToken, login.checkPermission, faqController.update
 //user routers
 router.post('/delete/user', login.checkToken, login.checkPermission, userController.deleteUser)
 router.post('/user', userController.addUser)
-router.get('/users', login.checkToken, login.checkPermission, userController.getUsers)
+router.get('/users', userController.getUsers)
 router.get('/user', userController.getUser)
 router.get('/user/me', login.checkToken, userController.getMe)
 router.put('/user', userController.updateUser)

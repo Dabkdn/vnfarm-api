@@ -28,7 +28,7 @@ const add = async (data) => {
     }
 }
 const getAll = () => {
-    return User.find({})
+    return User.find({}).populate("role")
 }
 const update = (data, resolve, reject) => {
     return User.updateOne({ _id: data.id }, data, (err, raw) => {
