@@ -36,7 +36,7 @@ const login = async (req, res) => {
                     userId: userId,
                     token: token,
                     period: period,
-                    updatedDate: Date.now()
+                    updatedDate: Date()
                 },
                 {
                     upsert: true,

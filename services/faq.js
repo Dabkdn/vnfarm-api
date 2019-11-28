@@ -8,7 +8,7 @@ const getAll = () => {
     return FAQ.find({})
 }
 const update = (data) => {
-    return FAQ.update({_id: data.id}, {value: data.value})
+    return FAQ.update({_id: data.id}, data)
 }
 const remove = (data) => {
     return FAQ.remove({_id: {$in: data}})

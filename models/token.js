@@ -8,6 +8,13 @@ const schema = new Schema({
     updatedDate: { type: Date, default: Date.now }
 });
 
+schema.virtual('user',{
+    ref: 'User',
+    localField: 'userId',
+    foreignField: '_id',
+    justOne: true
+});
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Token', schema);

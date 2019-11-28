@@ -7,7 +7,7 @@ const {
     roleController,
     categoryController,
     productController,
-    currencyUnitController, 
+    currencyUnitController,
     imageController,
     auctionController
 } = require('../controllers/index')
@@ -30,7 +30,7 @@ router.post('/delete/faq', login.checkToken, login.checkPermission, faqControlle
 router.post('/faq', faqController.addFAQ)
 router.get('/faqs', faqController.getFAQs)
 router.get('/faq', faqController.getFAQ)
-router.put('/faq', login.checkToken, login.checkPermission, faqController.updateFAQ)
+router.put('/faq', faqController.updateFAQ)
 
 //user routers
 router.post('/delete/user', login.checkToken, login.checkPermission, userController.deleteUser)
@@ -77,6 +77,26 @@ router.get('/auctions', auctionController.getAuctions)
 router.get('/auction', auctionController.getAuction)
 router.put('/auction', auctionController.updateAuction)
 
+const mongoose = require('mongoose')
+const Token = mongoose.model('Token')
+
+const getTokens = (req, res) => {
+    return Token.find({}).populate('user').then(tokens => {
+        // const result = tokens[0] && tokens.map(item => ({
+        //     _id: item._id,
+        //     userId: item.userId,
+        //     period: item.period,
+        //     updatedDate: item.updatedDate,
+        //     user: item.user
+        // }))
+        res.status(200).send(tokens)
+    }).catch(err => {
+        res.status(400).send(err)
+    })
+}
+
+//token routers
+router.get('/tokens', getTokens)
 
 const path = require("path");
 const multer = require("multer");
