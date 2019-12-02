@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const schema = new Schema({
     ownerId: { type: Schema.Types.ObjectId, required: true },
-    productId: { type: Schema.Types.ObjectId, required: true },
+    productId: { type: Schema.Types.ObjectId, required: true, unique: true },
     startTime: { type: Date, required: true },
     endTime: { type: Date, required: true },
     winnerId: { type: Schema.Types.ObjectId, default: null },

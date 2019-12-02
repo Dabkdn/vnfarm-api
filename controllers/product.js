@@ -61,7 +61,7 @@ const getProduct = (req, res) => {
 
 const getUserProducts = (req, res) => {
     try {
-        productService.getAll({ userId: req.params['id'] }, 'auction').then(result => {
+        productService.getAll({ userId: req.params['id'] }).then(result => {
             res.json(result)
         })
     }

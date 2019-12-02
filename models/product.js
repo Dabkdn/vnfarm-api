@@ -8,6 +8,9 @@ const schema = new Schema({
     code: { type: String },
     price: { type: Number },
     unitId: { type: Schema.Types.ObjectId, required: true },
+    quantity: { type: Number },
+    mass: { type: Number },
+    expiryDate: { type: Date },
     images: { type: Array },
     description: { type: String },
     userId: { type: Schema.Types.ObjectId, required: true },
@@ -15,26 +18,27 @@ const schema = new Schema({
     createdDate: { type: Date, default: Date.now }
 });
 
-schema.virtual('user',{
+schema.virtual('user', {
     ref: 'User',
     localField: 'userId',
     foreignField: '_id',
     justOne: true
 });
 
-schema.virtual('auction',{
+schema.virtual('auction', {
     ref: 'Auction',
     localField: '_id',
     foreignField: 'productId',
     justOne: true
 });
 
-schema.virtual('unit',{
+schema.virtual('unit', {
     ref: 'CurrencyUnit',
     localField: 'unitId',
     foreignField: '_id',
     justOne: true
 });
+
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Product', schema);

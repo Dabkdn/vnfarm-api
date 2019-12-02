@@ -13,6 +13,7 @@ const bidSocket = (io) => {
             const decoded = jwt.verify(data.token, config.secret)
 
             const userId = decoded && decoded.userId
+            console.log(data)
 
             await Auction.findById(data.auctionId).then(result => {
                 const oldAuctionDetail = result.auctionDetail
@@ -21,7 +22,7 @@ const bidSocket = (io) => {
                     {
                         auctionDetail: {
                             ...oldAuctionDetail,
-                            [data.userId]: {
+                            [userId]: {
                                 userId: userId,
                                 bidMoney: data.bidMoney,
                                 updatedDate: (new Date)

@@ -13,4 +13,4 @@ const schema = new Schema({
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Order', schema);
+module.exports = mongoose.model('Cart', schema);

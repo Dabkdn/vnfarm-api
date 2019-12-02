@@ -17,7 +17,7 @@ const { apiRouter } = require('./routes')
 const cors = require("cors");
 const session = require('express-session')
 
-app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 86400000 }}))
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 86400000 } }))
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 }
@@ -27,11 +27,11 @@ app.use(bodyParser.json())
 app.use(cors());
 app.use('/api', apiRouter)
 app.use(express.static('public'))
-app.get('*', function(req, res){
+app.get('*', function (req, res) {
     res.status(404).render('notfound');
 });
 
-mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {useNewUrlParser: true}).then(
+mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, { useNewUrlParser: true }).then(
     () => {
         http.listen(process.env.PORT, () => {
             console.log(`Server is running at localhost:${process.env.PORT}`)
@@ -39,7 +39,7 @@ mongoose.connect(`mongodb://${process.env.DB_HOST}/${process.env.DB_NAME}`, {use
         })
     },
     err => {
-        console.log('connection error: '+err)
+        console.log('connection error: ' + err)
         process.exit(1)
     }
 )

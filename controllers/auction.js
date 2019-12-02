@@ -1,12 +1,15 @@
-const {auctionService} = require('@services')
+const { auctionService } = require('@services')
+const schedule = require('../schedule')
 
 const addAuction = (req, res) => {
+    console.log(req.body)
+    schedule.bid.bidSchedule(req.body.endTime, req.body.productId)
     try {
         auctionService.add(req.body)
-        
+
         res.sendStatus(200)
     }
-    catch(err) {
+    catch (err) {
         res.render('error')
     }
 }
@@ -16,18 +19,18 @@ const getAuctions = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.sendStatus(400)
     }
 }
 const updateAuction = (req, res) => {
     try {
         auctionService.update(req.body)
-        .then(result=> {
-            res.json(result)
-        })
+            .then(result => {
+                res.json(result)
+            })
     }
-    catch(err) {
+    catch (err) {
         res.sendStatus(400)
     }
 }
@@ -37,7 +40,7 @@ const deleteAuction = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.sendStatus(400)
     }
 }
@@ -47,7 +50,7 @@ const getAuction = (req, res) => {
             res.json(result)
         })
     }
-    catch(err) {
+    catch (err) {
         res.sendStatus(400)
     }
 }

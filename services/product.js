@@ -6,8 +6,8 @@ const add = (data) => {
     
     return Product.insertMany(data)
 }
-const getAll = (option = {}, populate = '') => {
-    return Product.find(option).populate(populate)
+const getAll = (option = {}) => {
+    return Product.find(option).populate('auction').populate('unit')
 }
 const update = (data) => {
     return Product.update({ _id: data.id }, data)
