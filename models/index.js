@@ -6,7 +6,7 @@ module.exports = {
     conversation: require("./conversation"),
     faq: require("./faq"),
     message: require("./message"),
-    order: require("./cart"),
+    cart: require("./cart"),
     product: require("./product"),
     count: require('./count'),
     role: require('./role'),

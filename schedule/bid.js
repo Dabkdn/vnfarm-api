@@ -1,6 +1,8 @@
 const schedule = require('node-schedule')
 const mongoose = require('mongoose')
 const Auction = mongoose.model('Auction')
+const Product = mongoose.model('Product')
+const Cart = mongoose.model('Cart')
 
 const bidSchedule = (date, productId) => {
     schedule.scheduleJob(date, () => {
@@ -21,9 +23,25 @@ const bidSchedule = (date, productId) => {
                             { productId: productId },
                             { winnerId: winner.userId },
                             (err, res) => {
-                                if (err) {
-                                    console.log(err)
-                                }
+                                console.log('update auction')
+                                console.log(err)
+                                console.log(res)
+                            }
+                        )
+                        winner && Product.update(
+                            { _id: productId },
+                            { lastPrice: winner.bidMoney },
+                            (err, res) => {
+                                console.log('update product')
+                                console.log(err)
+                                console.log(res)
+                            }
+                        )
+                        winner && Cart.insertMany(
+                            {
+                                auctionId: auction._id,
+                                userId: winner.userId,
+                                productId: productId
                             }
                         )
                     }

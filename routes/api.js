@@ -9,7 +9,8 @@ const {
     productController,
     currencyUnitController,
     imageController,
-    auctionController
+    auctionController,
+    cartController
 } = require('../controllers/index')
 
 const {
@@ -76,6 +77,12 @@ router.post('/auction', auctionController.addAuction)
 router.get('/auctions', auctionController.getAuctions)
 router.get('/auction', auctionController.getAuction)
 router.put('/auction', auctionController.updateAuction)
+
+//cart routers
+router.get('/cart', cartController.getCart)
+router.get('/carts', cartController.getCarts)
+router.put('/cart', cartController.updateCart)
+router.get('/carts/user/:userId', cartController.getUserCarts)
 
 const mongoose = require('mongoose')
 const Token = mongoose.model('Token')

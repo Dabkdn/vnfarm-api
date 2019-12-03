@@ -4,7 +4,7 @@ const auctionDetailService = require('./auctionDetail')
 const categoryService = require('./category')
 const faqService = require('./faq')
 const messageService = require('./message')
-const orderService = require('./order')
+const cartService = require('./cart')
 const productService = require('./product')
 const countService = require('./count')
 const roleService = require('./role')
@@ -19,7 +19,7 @@ module.exports = {
     categoryService,
     faqService,
     messageService,
-    orderService,
+    cartService,
     productService,
     countService,
     roleService,

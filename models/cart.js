@@ -2,15 +2,37 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    auctionId: { type: String, required: true },
-    orderDate: { type: Date, required: true },
-    shippingDate: { type: Date, required: true },
-    shippingTo: { type: String, required: true },
-    total: { type: Number, required: true },
-    createdDate: { type: Date, default: Date.now }
+    auctionId: { type: Schema.Types.ObjectId, required: true },
+    userId: { type: Schema.Types.ObjectId, required: true },
+    productId: { type: Schema.Types.ObjectId, required: true },
+    orderDate: { type: Date, default: null },
+    shippingDate: { type: Date, default: null },
+    shippingTo: { type: String, default: null },
+    createdDate: { type: Date, default: Date.now },
+    status: { type: String, default: 'created' }
     //shipping infor
 });
 
+schema.virtual('user', {
+    ref: 'User',
+    localField: 'userId',
+    foreignField: '_id',
+    justOne: true
+});
+
+schema.virtual('product', {
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: '_id',
+    justOne: true
+});
+
+schema.virtual('auction', {
+    ref: 'Auction',
+    localField: 'auctionId',
+    foreignField: '_id',
+    justOne: true
+});
 schema.set('toJSON', { virtuals: true });
 
 module.exports = mongoose.model('Cart', schema);

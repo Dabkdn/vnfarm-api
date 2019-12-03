@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const schema = new Schema({
     name: { type: String, unique: true, required: true },
     nameSlug: { type: String },
-    status: { type: Number, default: 0 },
+    status: { type: Number, default: 1 },
     code: { type: String },
     price: { type: Number },
+    lastPrice: { type: Number },
     unitId: { type: Schema.Types.ObjectId, required: true },
     quantity: { type: Number },
     mass: { type: Number },
