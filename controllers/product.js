@@ -10,16 +10,13 @@ const addProduct = (req, res) => {
     }
 }
 const getProducts = (req, res) => {
-    try {
-        productService.getAll().then(result => {
-            res.json(result)
-        })
-    }
-    catch (err) {
+    productService.getAll(req.params['pageSize'], req.params['pageIndex'], req.query.sort, req.query.search).then(result => {
+        res.json(result)
+    }).catch(err => {
         res.status(400).send({
             message: err
         })
-    }
+    })
 }
 const updateProduct = (req, res) => {
     try {
@@ -73,30 +70,27 @@ const getUserProducts = (req, res) => {
 }
 
 const getProductsByCategoryId = (req, res) => {
-    try {
-        productService.getAll({ categoryId: req.params['categoryId'] }, 'auction').then(result => {
+    productService.getProductsByCategoryId(req.params['categoryId'], req.params['pageSize'], req.params['pageIndex'], req.query.sort, req.query.search)
+        .then(result => {
             res.json(result)
+        }).catch(err => {
+            res.status(400).send({
+                message: err
+            })
         })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
-        })
-    }
 }
 
 const getMyProducts = (req, res) => {
-    try {
-        const userId = req.decoded && req.decoded.userId
-        productService.getAll({ userId: userId }, 'auction').then(result => {
+    const userId = req.decoded && req.decoded.userId
+    productService.getMyProducts(userId, req.params['pageSize'], req.params['pageIndex'], req.query.sort, req.query.search)
+        .then(result => {
             res.json(result)
         })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
+        .catch(err => {
+            res.status(400).send({
+                message: err
+            })
         })
-    }
 }
 
 module.exports = {

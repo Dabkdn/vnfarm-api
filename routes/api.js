@@ -56,12 +56,12 @@ router.get('/category/parentwithchild', categoryController.getParentCategoryWith
 //product routers
 router.post('/delete/product', productController.deleteProduct)
 router.post('/product', productController.addProduct)
-router.get('/products', productController.getProducts)
+router.get('/products/size/:pageSize/index/:pageIndex', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
 router.get('/products/user/:id', productController.getUserProducts)
-router.get('/myproducts', login.checkToken, productController.getMyProducts)
-router.get('/products/category/:categoryId', productController.getProductsByCategoryId)
+router.get('/myproducts/size/:pageSize/index/:pageIndex', login.checkToken, productController.getMyProducts)
+router.get('/products/category/:categoryId/size/:pageSize/index/:pageIndex', productController.getProductsByCategoryId)
 
 //unit routers
 router.post('/delete/unit', currencyUnitController.deleteCurrencyUnit)
