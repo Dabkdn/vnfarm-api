@@ -5,7 +5,6 @@ const schema = new Schema({
     auctionId: { type: Schema.Types.ObjectId, required: true },
     userId: { type: Schema.Types.ObjectId, required: true },
     productId: { type: Schema.Types.ObjectId, required: true },
-    orderDate: { type: Date, default: null },
     shippingDate: { type: Date, default: null },
     shippingTo: { type: String, default: null },
     createdDate: { type: Date, default: Date.now },

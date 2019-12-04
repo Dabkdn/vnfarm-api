@@ -2,7 +2,12 @@ const mongoose = require('mongoose')
 const Cart = mongoose.model('Cart')
 
 const getAll = (option = {}) => {
-    return Cart.find(option).populate('user').populate('product').populate('auction')
+    return Cart.find(option).populate('user').populate(
+        {
+            path: 'product',
+            populate: 'unit'
+        }
+    ).populate('auction')
 }
 
 const update = (data) => {
