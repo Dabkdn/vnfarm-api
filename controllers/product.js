@@ -1,14 +1,35 @@
 const { productService } = require('@services')
+const { product } = require('@models')
 
 const addProduct = (req, res) => {
-    try {
-        productService.add(req.body)
-        res.sendStatus(200)
+    const data = {
+        userId: req.body.userId,
+        name: req.body.name,
+        code: req.body.code,
+        price: req.body.price,
+        unitId: req.body.unitId,
+        categoryId: req.body.categoryId,
+        mass: req.body.mass,
+        images: req.body.images,
+        quantity: req.body.quantity
     }
-    catch (err) {
-        res.render('error')
+    const { error } = product.productValidation(data)
+    if (error) {
+        res.status(400).send(error.details)
+    }
+    else {
+        productService.add([req.body])
+            .then(result => {
+                res.json(result)
+            })
+            .catch(err => {
+                res.status(400).send({
+                    message: err
+                })
+            })
     }
 }
+
 const getProducts = (req, res) => {
     productService.getAll(req.params['pageSize'], req.params['pageIndex'], req.query.sort, req.query.search).then(result => {
         res.json(result)
@@ -18,55 +39,67 @@ const getProducts = (req, res) => {
         })
     })
 }
+
 const updateProduct = (req, res) => {
-    try {
+    const data = {
+        name: req.body.name,
+        code: req.body.code,
+        price: req.body.price,
+        unitId: req.body.unitId,
+        categoryId: req.body.categoryId,
+        mass: req.body.mass,
+        quantity: req.body.quantity
+    }
+    const { error } = product.updateProductValidation(data)
+    if (error) {
+        res.status(400).send(error.details)
+    }
+    else {
         productService.update(req.body)
             .then(result => {
                 res.json(result)
             })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
-        })
+            .catch(err => {
+                res.status(400).send({
+                    message: err
+                })
+            })
     }
 }
 const deleteProduct = (req, res) => {
-    try {
-        productService.remove(req.body).then(result => {
+    console.log(req.body)
+    productService.update(req.body)
+        .then(result => {
             res.json(result)
         })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
+        .catch(err => {
+            res.status(400).send({
+                message: err
+            })
         })
-    }
 }
 const getProduct = (req, res) => {
-    try {
-        productService.get(req.query.id).then(result => {
+    productService.get(req.query.id)
+        .then(result => {
             res.json(result)
         })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
+        .catch(err => {
+            res.status(400).send({
+                message: err
+            })
         })
-    }
 }
 
 const getUserProducts = (req, res) => {
-    try {
-        productService.getAll({ userId: req.params['id'] }).then(result => {
+    productService.getUserProducts(req.params['id'], req.params['pageSize'], req.params['pageIndex'], req.query.sort, req.query.search)
+        .then(result => {
             res.json(result)
         })
-    }
-    catch (err) {
-        res.status(400).send({
-            message: err
+        .catch(err => {
+            res.status(400).send({
+                message: err
+            })
         })
-    }
 }
 
 const getProductsByCategoryId = (req, res) => {

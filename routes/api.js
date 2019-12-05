@@ -59,7 +59,7 @@ router.post('/product', productController.addProduct)
 router.get('/products/size/:pageSize/index/:pageIndex', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
-router.get('/products/user/:id', productController.getUserProducts)
+router.get('/products/user/:id/size/:pageSize/index/:pageIndex', productController.getUserProducts)
 router.get('/myproducts/size/:pageSize/index/:pageIndex', login.checkToken, productController.getMyProducts)
 router.get('/products/category/:categoryId/size/:pageSize/index/:pageIndex', productController.getProductsByCategoryId)
 

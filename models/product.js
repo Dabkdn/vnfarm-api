@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Joi = require('joi');
 
-const schema = new Schema({
+const productSchema = new Schema({
     name: { type: String, unique: true, required: true },
     nameSlug: { type: String },
     status: { type: Number, default: 1 },
@@ -11,35 +12,70 @@ const schema = new Schema({
     unitId: { type: Schema.Types.ObjectId, required: true },
     quantity: { type: Number },
     mass: { type: Number },
-    expiryDate: { type: Date },
+    expiryDate: { type: Date, default: Date.now },
     images: { type: Array },
-    description: { type: String },
+    description: { type: String, defaul: "" },
     userId: { type: Schema.Types.ObjectId, required: true },
     categoryId: { type: Schema.Types.ObjectId, required: true },
     createdDate: { type: Date, default: Date.now }
 });
 
-schema.virtual('user', {
+productSchema.virtual('user', {
     ref: 'User',
     localField: 'userId',
     foreignField: '_id',
     justOne: true
 });
 
-schema.virtual('auction', {
+productSchema.virtual('auction', {
     ref: 'Auction',
     localField: '_id',
     foreignField: 'productId',
     justOne: true
 });
 
-schema.virtual('unit', {
+productSchema.virtual('unit', {
     ref: 'CurrencyUnit',
     localField: 'unitId',
     foreignField: '_id',
     justOne: true
 });
 
-schema.set('toJSON', { virtuals: true });
+productSchema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Product', schema);
+const productValidation = (product) => {
+    const schema = Joi.object().keys({
+        name: Joi.string().required().min(5),
+        code: Joi.string(),
+        price: Joi.number(),
+        quantity: Joi.number(),
+        mass: Joi.number(),
+        unitId: Joi.required(),
+        userId: Joi.required(),
+        images: Joi.array().required().items(Joi.string().required()),
+        categoryId: Joi.required()
+
+    })
+    return Joi.validate(product, schema, { abortEarly: false });
+}
+
+const updateProductValidation = (product) => {
+    const schema = Joi.object().keys({
+        name: Joi.string().required().min(5),
+        code: Joi.string(),
+        price: Joi.number(),
+        quantity: Joi.number(),
+        mass: Joi.number(),
+        unitId: Joi.required(),
+        // images: Joi.array().required().items(Joi.string().required()),
+        categoryId: Joi.required()
+
+    })
+    return Joi.validate(product, schema, { abortEarly: false });
+}
+
+module.exports = {
+    Product: mongoose.model('Product', productSchema),
+    productValidation,
+    updateProductValidation
+}
