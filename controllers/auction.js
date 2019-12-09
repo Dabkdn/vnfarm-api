@@ -1,16 +1,27 @@
-const { auctionService } = require('@services')
+const { auctionService, productService } = require('@services')
 const schedule = require('../schedule')
+const { auction } = require('@models')
 
 const addAuction = (req, res) => {
-    console.log(req.body)
-    schedule.bid.bidSchedule(req.body.endTime, req.body.productId)
-    try {
-        auctionService.add(req.body)
-
-        res.sendStatus(200)
+    const { error } = auction.auctionValidation(req.body)
+    if (error) {
+        res.status(400).send(error.details)
     }
-    catch (err) {
-        res.render('error')
+    else {
+        schedule.bid.bidSchedule(req.body.endTime, req.body.productId)
+        auctionService.add(req.body)
+            .then(result => {
+                productService.update(
+                    {
+                        id: req.body.productId,
+                        status: 2
+                    }
+                ).then(result => { })
+                res.json(result)
+            })
+            .catch(err => {
+                res.status(400).send(err)
+            })
     }
 }
 const getAuctions = (req, res) => {

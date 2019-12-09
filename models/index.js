@@ -1,5 +1,5 @@
 module.exports = {
-    anouncement: require("./anouncement"),
+    announcement: require("./announcement"),
     auction: require("./auction"),
     auctionDetail: require("./auctionDetail"),
     category: require("./category"),

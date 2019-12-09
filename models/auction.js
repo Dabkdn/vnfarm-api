@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Joi = require('joi');
 
-const schema = new Schema({
+const auctionSchema = new Schema({
     ownerId: { type: Schema.Types.ObjectId, required: true },
     productId: { type: Schema.Types.ObjectId, required: true, unique: true },
     startTime: { type: Date, required: true },
@@ -9,9 +10,24 @@ const schema = new Schema({
     winnerId: { type: Schema.Types.ObjectId, default: null },
     createdDate: { type: Date, default: Date.now },
     auctionDetail: { type: Object, default: null }
-    //check start < end
 });
 
-schema.set('toJSON', { virtuals: true });
+auctionSchema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Auction', schema);
+const auctionValidation = (auction) => {
+    const schema = Joi.object().keys({
+        // startTime: Joi.date().iso().required(),
+        // endTime: Joi.date().iso().greater(Joi.ref('startTime')).required(),
+        startTime: Joi.date().required(),
+        endTime: Joi.date().required().greater(Joi.ref('startTime')),
+        ownerId: Joi.required(),
+        productId: Joi.required()
+
+    })
+    return Joi.validate(auction, schema, { abortEarly: false });
+}
+
+module.exports = {
+    auction: mongoose.model('Auction', auctionSchema),
+    auctionValidation
+};

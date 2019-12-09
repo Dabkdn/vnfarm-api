@@ -54,7 +54,7 @@ router.put('/category', categoryController.updateCategory)
 router.get('/category/parentwithchild', categoryController.getParentCategoryWithChilds)
 
 //product routers
-router.post('/delete/product', productController.deleteProduct)
+router.put('/delete/product', productController.deleteProduct)
 router.post('/product', productController.addProduct)
 router.get('/products/size/:pageSize/index/:pageIndex', productController.getProducts)
 router.get('/product', productController.getProduct)

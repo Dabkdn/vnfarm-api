@@ -67,7 +67,6 @@ const updateProduct = (req, res) => {
     }
 }
 const deleteProduct = (req, res) => {
-    console.log(req.body)
     productService.update(req.body)
         .then(result => {
             res.json(result)
