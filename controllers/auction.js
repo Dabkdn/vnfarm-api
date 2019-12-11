@@ -11,12 +11,6 @@ const addAuction = (req, res) => {
         schedule.bid.bidSchedule(req.body.endTime, req.body.productId)
         auctionService.add(req.body)
             .then(result => {
-                productService.update(
-                    {
-                        id: req.body.productId,
-                        status: 2
-                    }
-                ).then(result => { })
                 res.json(result)
             })
             .catch(err => {
