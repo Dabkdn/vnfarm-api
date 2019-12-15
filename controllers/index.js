@@ -9,6 +9,7 @@ const currencyUnitController = require('./currencyUnit')
 const imageController = require('./image')
 const auctionController = require('./auction')
 const cartController = require('./cart')
+const commentController = require('./comment')
 
 module.exports = {
     faqController,
@@ -21,5 +22,6 @@ module.exports = {
     currencyUnitController,
     imageController,
     auctionController,
-    cartController
+    cartController,
+    commentController
 }

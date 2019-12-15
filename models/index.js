@@ -13,5 +13,6 @@ module.exports = {
     user: require('./user'),
     currencyUnit: require('./currencyUnit'),
     token: require('./token'),
-    image: require('./image')
+    image: require('./image'),
+    comment: require('./comment')
 }

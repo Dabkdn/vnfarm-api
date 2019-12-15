@@ -11,7 +11,7 @@ const roleService = require('./role')
 const userService = require('./user')
 const currencyUnitService = require('./currencyUnit')
 const imageService = require('./image')
-
+const commentService = require('./comment')
 module.exports = {
     anouncementService,
     auctionService,
@@ -25,5 +25,6 @@ module.exports = {
     roleService,
     userService,
     currencyUnitService,
-    imageService
+    imageService,
+    commentService
 }

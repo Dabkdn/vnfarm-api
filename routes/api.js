@@ -10,7 +10,8 @@ const {
     currencyUnitController,
     imageController,
     auctionController,
-    cartController
+    cartController,
+    commentController
 } = require('../controllers/index')
 
 const {
@@ -69,6 +70,10 @@ router.post('/unit', currencyUnitController.addCurrencyUnit)
 router.get('/units', currencyUnitController.getCurrencyUnits)
 router.get('/unit', currencyUnitController.getCurrencyUnit)
 router.put('/unit', currencyUnitController.updateCurrencyUnit)
+
+//comment routers
+router.post('/comment', commentController.addComment)
+router.get('/comments/:ownerId', commentController.getComments)
 
 
 //auction routers
