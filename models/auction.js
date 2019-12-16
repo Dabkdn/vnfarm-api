@@ -16,8 +16,6 @@ auctionSchema.set('toJSON', { virtuals: true });
 
 const auctionValidation = (auction) => {
     const schema = Joi.object().keys({
-        // startTime: Joi.date().iso().required(),
-        // endTime: Joi.date().iso().greater(Joi.ref('startTime')).required(),
         startTime: Joi.date().required(),
         endTime: Joi.date().required().greater(Joi.ref('startTime')),
         ownerId: Joi.required(),
