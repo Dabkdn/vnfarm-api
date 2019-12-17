@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 }
 app.set('view engine', 'ejs')
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors());
 app.use('/api', apiRouter)

@@ -1,7 +1,10 @@
 const { productService } = require('@services')
 const { product } = require('@models')
 
-const addProduct = (req, res) => {
+const addProduct = async (req, res) => {
+    const images = req.files && req.files.images && req.files.images.map(item => {
+        return item.path
+    })
     const data = {
         userId: req.body.userId,
         name: req.body.name,
@@ -10,7 +13,7 @@ const addProduct = (req, res) => {
         unitId: req.body.unitId,
         categoryId: req.body.categoryId,
         mass: req.body.mass,
-        images: req.body.images,
+        images: images,
         quantity: req.body.quantity
     }
     const { error } = product.productValidation(data)
@@ -18,7 +21,11 @@ const addProduct = (req, res) => {
         res.status(400).send(error.details)
     }
     else {
-        productService.add([req.body])
+        let productData = {
+            ...req.body,
+            images: images
+        }
+        productService.add([productData])
             .then(result => {
                 res.json(result)
             })

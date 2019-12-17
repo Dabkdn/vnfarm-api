@@ -55,8 +55,28 @@ router.put('/category', categoryController.updateCategory)
 router.get('/category/parentwithchild', categoryController.getParentCategoryWithChilds)
 
 //product routers
+
+const multer = require('multer');
+const path = require('path');
+
+const prorductStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/storage/product')
+    },
+    filename: function (req, file, cb) {
+        cb(null, "product-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const uploadProductImages = multer({
+    storage: prorductStorage
+})
+
+
 router.put('/delete/product', productController.deleteProduct)
-router.post('/product', productController.addProduct)
+router.post('/product', uploadProductImages.fields([
+    { name: 'images', maxCount: 10 }
+]), productController.addProduct)
 router.get('/products/size/:pageSize/index/:pageIndex', productController.getProducts)
 router.get('/product', productController.getProduct)
 router.put('/product', productController.updateProduct)
@@ -94,13 +114,6 @@ const Token = mongoose.model('Token')
 
 const getTokens = (req, res) => {
     return Token.find({}).populate('user').then(tokens => {
-        // const result = tokens[0] && tokens.map(item => ({
-        //     _id: item._id,
-        //     userId: item.userId,
-        //     period: item.period,
-        //     updatedDate: item.updatedDate,
-        //     user: item.user
-        // }))
         res.status(200).send(tokens)
     }).catch(err => {
         res.status(400).send(err)
@@ -110,20 +123,18 @@ const getTokens = (req, res) => {
 //token routers
 router.get('/tokens', getTokens)
 
-const path = require("path");
-const multer = require("multer");
 
-const prorductStorage = multer.diskStorage({
-    destination: "./public/storage/product/",
-    filename: function (req, file, cb) {
-        cb(null, "product-" + Date.now() + path.extname(file.originalname));
-    }
-});
+// const prorductStorage = multer.diskStorage({
+//     destination: "./public/storage/product/",
+//     filename: function (req, file, cb) {
+//         cb(null, "product-" + Date.now() + path.extname(file.originalname));
+//     }
+// });
 
-const uploadProductImage = multer({
-    storage: prorductStorage,
-    limits: { fileSize: 1000000 },
-})
+// const uploadProductImage = multer({
+//     storage: prorductStorage,
+//     limits: { fileSize: 1000000 },
+// })
 
 const avatarStorage = multer.diskStorage({
     destination: "./public/storage/avatar/",
@@ -137,7 +148,7 @@ const uploadAvatar = multer({
     limits: { fileSize: 1000000 },
 })
 
-router.post("/upload/product", uploadProductImage.single("product"), imageController.addImage)
+// router.post("/upload/product", uploadProductImage.single("product"), imageController.addImage)
 router.post("/upload/avatar", uploadAvatar.single("avatar"), imageController.addImage)
 
 module.exports = router
