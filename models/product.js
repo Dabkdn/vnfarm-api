@@ -47,13 +47,14 @@ const productValidation = (product) => {
     const schema = Joi.object().keys({
         name: Joi.string().required().min(5),
         code: Joi.string(),
-        price: Joi.number(),
-        quantity: Joi.number(),
-        mass: Joi.number(),
+        price: Joi.number().greater(0),
+        quantity: Joi.number().greater(0),
+        mass: Joi.number().greater(0),
         unitId: Joi.required(),
         userId: Joi.required(),
         images: Joi.array().required().items(Joi.string().required()),
-        categoryId: Joi.required()
+        categoryId: Joi.required(),
+        expiryDate: Joi.date().required()
 
     })
     return Joi.validate(product, schema, { abortEarly: false });
@@ -63,9 +64,9 @@ const updateProductValidation = (product) => {
     const schema = Joi.object().keys({
         name: Joi.string().required().min(5),
         code: Joi.string(),
-        price: Joi.number(),
-        quantity: Joi.number(),
-        mass: Joi.number(),
+        price: Joi.number().greater(0),
+        quantity: Joi.number().greater(0),
+        mass: Joi.number().greater(0),
         unitId: Joi.required(),
         // images: Joi.array().required().items(Joi.string().required()),
         categoryId: Joi.required()

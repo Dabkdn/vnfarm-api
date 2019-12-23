@@ -14,7 +14,8 @@ const addProduct = async (req, res) => {
         categoryId: req.body.categoryId,
         mass: req.body.mass,
         images: images,
-        quantity: req.body.quantity
+        quantity: req.body.quantity,
+        expiryDate: req.body.expiryDate
     }
     const { error } = product.productValidation(data)
     if (error) {

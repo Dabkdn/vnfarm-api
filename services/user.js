@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const bcrypt = require('bcrypt');
 const constants = require('@constants')
+const config = require('@config')
 
 const add = async (data) => {
     try {
@@ -18,7 +19,7 @@ const add = async (data) => {
             address: data.address,
             birthday: data.birthday,
             avatar: data.avatar,
-            roleId: "5dbf7064e62cc872572265c8"
+            roleId: config.commonRole
         })
 
         return await userInstance.save()
@@ -30,15 +31,8 @@ const add = async (data) => {
 const getAll = () => {
     return User.find({}).populate("role")
 }
-const update = (data, resolve, reject) => {
-    return User.updateOne({ _id: data.id }, data, (err, raw) => {
-        if (err) {
-            reject(err)
-        }
-        else {
-            resolve(raw)
-        }
-    })
+const update = (data) => {
+    return User.updateOne({ _id: data.id }, data)
 }
 const remove = (data) => {
     return User.remove({ _id: { $in: data } })
