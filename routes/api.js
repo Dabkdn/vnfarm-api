@@ -102,6 +102,7 @@ router.post('/auction', auctionController.addAuction)
 router.get('/auctions', auctionController.getAuctions)
 router.get('/auction', auctionController.getAuction)
 router.put('/auction', auctionController.updateAuction)
+router.get('/auction/user/:userId', auctionController.getUserAuctions)
 
 //cart routers
 router.get('/cart', cartController.getCart)

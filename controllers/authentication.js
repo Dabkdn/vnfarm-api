@@ -12,7 +12,7 @@ const login = async (req, res) => {
     let mockedUsername = '';
     let mockedPassword = '';
     let user = {};
-    await User.findOne({ 'username': username }).populate('role')
+    await User.findOne({ 'username': username, status: 1 }).populate('role')
         .then(result => {
             mockedUsername = result.username
             mockedPassword = result.password

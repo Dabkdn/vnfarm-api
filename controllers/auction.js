@@ -28,6 +28,18 @@ const getAuctions = (req, res) => {
         res.sendStatus(400)
     }
 }
+
+const getUserAuctions = (req, res) => {
+    try {
+        auctionService.getUserAuctions(req.params['userId']).then(result => {
+            res.json(result)
+        })
+    }
+    catch (err) {
+        res.sendStatus(400)
+    }
+}
+
 const updateAuction = (req, res) => {
     try {
         auctionService.update(req.body)
@@ -65,5 +77,6 @@ module.exports = {
     getAuctions,
     getAuction,
     updateAuction,
+    getUserAuctions,
     deleteAuction
 }

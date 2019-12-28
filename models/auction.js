@@ -25,6 +25,13 @@ const auctionValidation = (auction) => {
     return Joi.validate(auction, schema, { abortEarly: false });
 }
 
+auctionSchema.virtual('product', {
+    ref: 'Product',
+    localField: 'productId',
+    foreignField: '_id',
+    justOne: true
+});
+
 module.exports = {
     auction: mongoose.model('Auction', auctionSchema),
     auctionValidation
